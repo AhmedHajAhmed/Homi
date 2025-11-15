@@ -14,7 +14,6 @@ export default function CreateListingPage() {
     title: '',
     description: '',
     location: '',
-    price: '',
     maxGuests: '1',
     photos: '',
     availableFrom: '',
@@ -50,6 +49,7 @@ export default function CreateListingPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          price: 0, // Price set to 0 - colleges handle payment
           photos,
           amenities,
         }),
@@ -108,31 +108,15 @@ export default function CreateListingPage() {
               />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
-                <Input
-                  id="location"
-                  placeholder="Berkeley, CA"
-                  value={formData.location}
-                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="price">Price per Night ($)</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="45.00"
-                  value={formData.price}
-                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  required
-                />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="location">Location</Label>
+              <Input
+                id="location"
+                placeholder="Berkeley, CA"
+                value={formData.location}
+                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                required
+              />
             </div>
 
             <div className="space-y-2">

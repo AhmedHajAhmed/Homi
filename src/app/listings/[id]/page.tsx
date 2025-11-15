@@ -5,7 +5,7 @@ import { getAuthUser } from '@/lib/auth';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Users, Calendar, Mail, Phone } from 'lucide-react';
-import { formatCurrency, formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 import BookingForm from '@/components/BookingForm';
 
 export default async function ListingDetailPage({ params }: { params: { id: string } }) {
@@ -80,8 +80,8 @@ export default async function ListingDetailPage({ params }: { params: { id: stri
                 Up to {listing.maxGuests} guest{listing.maxGuests > 1 ? 's' : ''}
               </div>
             </div>
-            <Badge variant="secondary" className="text-lg px-4 py-2">
-              {formatCurrency(listing.price)} per night
+            <Badge variant="secondary" className="text-sm px-3 py-1">
+              Fully Funded by Your College
             </Badge>
           </div>
 

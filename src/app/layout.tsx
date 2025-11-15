@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import AuthProvider from '@/components/AuthProvider';
 import { getAuthUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
@@ -31,8 +32,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar user={user} />
-        <main className="min-h-screen bg-gray-50">{children}</main>
+        <AuthProvider>
+          <Navbar user={user} />
+          <main className="min-h-screen bg-gray-50">{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );

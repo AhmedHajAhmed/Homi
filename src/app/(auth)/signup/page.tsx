@@ -41,8 +41,12 @@ export default function SignupPage() {
         return;
       }
 
-      router.push('/dashboard');
-      router.refresh();
+      // Store token in localStorage
+      if (data.token) {
+        localStorage.setItem('auth-token', data.token);
+      }
+
+      window.location.href = '/dashboard';
     } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {

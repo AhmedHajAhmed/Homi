@@ -21,22 +21,33 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
+      console.log('Attempting login with:', email);
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
+      console.log('Response status:', response.status);
       const data = await response.json();
+      console.log('Response data:', data);
 
       if (!response.ok) {
+        console.log('Login failed:', data.error);
         setError(data.error || 'Login failed');
         return;
       }
 
-      router.push('/dashboard');
-      router.refresh();
+      // Store token in localStorage
+      if (data.token) {
+        localStorage.setItem('auth-token', data.token);
+        console.log('Token stored in localStorage');
+      }
+
+      console.log('Login successful! Redirecting to dashboard...');
+      window.location.href = '/dashboard';
     } catch (err) {
+      console.error('Login error:', err);
       setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);

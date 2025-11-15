@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       title,
       description,
       location,
-      price,
+      price = 0, // Default to 0 if not provided (college-funded)
       maxGuests,
       amenities,
       photos,
@@ -84,8 +84,8 @@ export async function POST(request: NextRequest) {
       availableTo,
     } = body;
 
-    // Validation
-    if (!title || !description || !location || !price || !maxGuests || !availableFrom || !availableTo) {
+    // Validation (price is optional, defaults to 0)
+    if (!title || !description || !location || !maxGuests || !availableFrom || !availableTo) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
         title,
         description,
         location,
-        price: parseFloat(price),
+        price: typeof price === 'number' ? price : parseFloat(price) || 0,
         maxGuests: parseInt(maxGuests),
         amenities: amenities || {},
         photos: photos || [],

@@ -32,11 +32,21 @@ export async function getAuthUser(): Promise<JWTPayload | null> {
   return verifyToken(token.value);
 }
 
+// Helper to get auth user from request headers (for API routes)
+export function getAuthUserFromHeader(authHeader: string | null): JWTPayload | null {
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return null;
+  }
+  
+  const token = authHeader.substring(7);
+  return verifyToken(token);
+}
+
 export async function setAuthCookie(token: string) {
   const cookieStore = await cookies();
   cookieStore.set('auth-token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: false, // Disable secure flag for localhost development
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 7, // 7 days
     path: '/',

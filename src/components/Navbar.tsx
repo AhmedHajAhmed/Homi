@@ -18,9 +18,12 @@ export default function Navbar({ user }: NavbarProps) {
   const router = useRouter();
 
   const handleLogout = async () => {
+    // Clear localStorage
+    localStorage.removeItem('auth-token');
+    // Call logout API
     await fetch('/api/auth/logout', { method: 'POST' });
-    router.push('/login');
-    router.refresh();
+    // Redirect to login
+    window.location.href = '/login';
   };
 
   return (

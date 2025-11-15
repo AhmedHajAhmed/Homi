@@ -45,13 +45,16 @@ export async function POST(request: NextRequest) {
       role: user.role,
     });
 
-    // Set cookie
+    // Set cookie (for browsers that support it)
     await setAuthCookie(token);
 
-    // Return user without password
+    // Return user without password AND token
     const { password: _, ...userWithoutPassword } = user;
 
-    return NextResponse.json({ user: userWithoutPassword }, { status: 200 });
+    return NextResponse.json({ 
+      user: userWithoutPassword, 
+      token // Return token in response for localStorage
+    }, { status: 200 });
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json(

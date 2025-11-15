@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { MapPin, Users } from 'lucide-react';
-import { formatCurrency, formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 import { Listing } from '@/types';
 
 interface ListingCardProps {
@@ -28,10 +27,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
           />
         </div>
         <CardHeader>
-          <div className="flex justify-between items-start">
-            <h3 className="font-semibold text-lg line-clamp-1">{listing.title}</h3>
-            <Badge variant="secondary">{formatCurrency(listing.price)}/night</Badge>
-          </div>
+          <h3 className="font-semibold text-lg line-clamp-1">{listing.title}</h3>
         </CardHeader>
         <CardContent>
           <div className="flex items-center text-sm text-muted-foreground mb-2">

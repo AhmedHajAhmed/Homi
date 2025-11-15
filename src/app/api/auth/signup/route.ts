@@ -66,10 +66,13 @@ export async function POST(request: NextRequest) {
       role: user.role,
     });
 
-    // Set cookie
+    // Set cookie (for browsers that support it)
     await setAuthCookie(token);
 
-    return NextResponse.json({ user }, { status: 201 });
+    return NextResponse.json({ 
+      user, 
+      token // Return token in response for localStorage
+    }, { status: 201 });
   } catch (error) {
     console.error('Signup error:', error);
     return NextResponse.json(
